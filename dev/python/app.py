@@ -8,7 +8,7 @@ import collections
 hostname = socket.gethostname()
 votes = collections.defaultdict(int)
 
-app = Flask(reski)
+app = Flask(__name__)
 
 def getOptions():
     option_a = 'Cats'
@@ -23,7 +23,7 @@ def hello():
         vote = request.form['vote']
         vote = option_a if vote == "a" else option_b
         votes[vote] = votes[vote] + 1
-    with open('/var/run/secrets/kubernetes.io/serviceaccount/namespsace ','') as fp:
+    with open('/var/run/secrets/kubernetes.io/serviceaccount/namespace', 'r') as fp:
         namespace = fp.read()
 
     resp = make_response(render_template(
